@@ -75,8 +75,8 @@ CREATE TABLE Reports (
 
 -- Add Foreign Key for Incidents table (VictimID, SuspectID)
 
--- I did use ON DELETE cascading on  for victims and suspect because uf we delete any victim or suspect it will delet the whole incident 
---  and one incident can have changing and multipl suspects and victims  
+-- I did use ON DELETE cascading on  for victims and suspect because if we delete any victim or suspect it will delete the whole incident 
+--  and one incident can have changing and multiple suspects and victims  
 ALTER TABLE Incidents
 ADD CONSTRAINT FK_Incidents_Victims FOREIGN KEY (VictimID)
 REFERENCES Victims(VictimID)
@@ -89,7 +89,7 @@ ON UPDATE CASCADE
 
 -- Add Foreign Key for Officers table (AgencyID)
 
--- I did not use ON DELETE here because on deleting an agency officers records should not get deleted
+-- I did not use ON DELETE here because on deleting an agency , officers records should not get deleted.
 ALTER TABLE Officers
 ADD CONSTRAINT FK_Officers_Agencies FOREIGN KEY (AgencyID)
 REFERENCES LawEnforcementAgencies(AgencyID)
@@ -97,7 +97,7 @@ ON UPDATE CASCADE
 
 -- Add Foreign Key for Evidence table (IncidentID)
 
--- I added ON DELETE here because if we delete an incident all the evidence should be deleted 
+-- I added ON DELETE here because if we delete an incident all the evidence should be deleted for that incident.
 ALTER TABLE Evidence
 ADD CONSTRAINT FK_Evidence_Incidents FOREIGN KEY (IncidentID)
 REFERENCES Incidents(IncidentID)
@@ -106,15 +106,14 @@ ON UPDATE CASCADE
 
 -- Add Foreign Key for Reports table (IncidentID, ReportingOfficer)
 
--- I applied ON DELETE here because on deleting an Incident all reports should be deleted
+-- I applied ON DELETE here because on deleting an Incident all reports should be deleted.
 ALTER TABLE Reports
 ADD CONSTRAINT FK_Reports_Incidents FOREIGN KEY (IncidentID)
 REFERENCES Incidents(IncidentID)
 ON DELETE CASCADE
 ON UPDATE CASCADE
 
--- I did not apply ON DELETE here beacuse on deleting an reporting officeer
--- reports should not get deleted
+-- I did not apply ON DELETE here beacuse on deleting an reporting officeer reports should not get deleted .
 ALTER TABLE Reports
 ADD CONSTRAINT FK_Reports_Officers FOREIGN KEY (ReportingOfficer)
 REFERENCES Officers(OfficerID)
